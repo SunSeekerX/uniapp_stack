@@ -17,18 +17,21 @@ module.exports = {
   rules: {
     'scss/at-import-partial-extension': 'always',
     'selector-class-pattern': null,
+    // uni-ap 特有的 rpx upx 单位
     'unit-no-unknown': [
       true,
       {
         ignoreUnits: ['rpx', 'upx'],
       },
     ],
+    // uni-app nvue 属性
     'property-no-unknown': [
       true,
       {
         ignoreProperties: ['lines'],
       },
     ],
+    // uni-app 特有的选择器
     'selector-type-no-unknown': [
       true,
       {
@@ -50,5 +53,7 @@ module.exports = {
     'no-empty-source': null,
     // nvue 字体设置
     'font-family-no-missing-generic-family-keyword': null,
+    // scss @ 规则
+    'at-rule-no-unknown': null,
   },
 }

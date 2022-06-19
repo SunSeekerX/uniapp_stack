@@ -71,7 +71,7 @@
     "*.vue": [
       "eslint --fix",
       "prettier --write",
-      "stylelint --fix"
+      "stylelint --fix --allow-empty-input"
     ],
     "*.{scss,less,styl}": [
       "stylelint --fix --allow-empty-input",
