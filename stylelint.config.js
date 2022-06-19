@@ -55,5 +55,7 @@ module.exports = {
     'font-family-no-missing-generic-family-keyword': null,
     // scss @ 规则
     'at-rule-no-unknown': null,
+    // 这个是不然把类似 “rgba(25, 24, 30, 1)” 格式化成 "rgb(25 24 30 / 100%)" 这种形式 sass 还不支持这种语法
+    'color-function-notation': 'legacy',
   },
 }
