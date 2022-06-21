@@ -1,4 +1,4 @@
-import { toast } from '@limm/utools'
+import { toast } from '@/uni_modules/limm-utools'
 
 /**
  * Api请求出错

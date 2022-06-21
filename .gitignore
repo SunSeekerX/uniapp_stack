@@ -37,7 +37,10 @@ yarn-error.log*
 !.yarn/versions
 
 # Another files
-unpackage/release/
-unpackage/debug/
 yarn.lock
 package-lock.json
+unpackage/release/
+unpackage/debug/
+unpackage/resources/
+unpackage/cache/
+nativeplugins/*.zip

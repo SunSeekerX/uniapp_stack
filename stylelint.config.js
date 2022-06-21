@@ -56,6 +56,8 @@ module.exports = {
     // scss @ 规则
     'at-rule-no-unknown': null,
     // 这个是不然把类似 “rgba(25, 24, 30, 1)” 格式化成 "rgb(25 24 30 / 100%)" 这种形式 sass 还不支持这种语法
-    'color-function-notation': 'legacy',
+    'color-function-notation': null,
+    // 禁用类似直接使用 unquote 不行 而要改为 string.unquote 这种的错误
+    'scss/no-global-function-names': null,
   },
 }

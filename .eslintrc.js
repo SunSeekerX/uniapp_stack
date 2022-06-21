@@ -33,5 +33,6 @@ module.exports = {
     'prettier/prettier': 0,
     // nvue
     'vue/comment-directive': 0,
+    'vue/no-v-text-v-html-on-component': 1,
   },
 }

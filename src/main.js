@@ -2,7 +2,7 @@
  * 导入依赖库
  */
 import Vue from 'vue'
-import utools from '@limm/utools' // utools
+import utools from '@/uni_modules/limm-utools'
 import uView from '@/uni_modules/uview-ui'
 
 /**

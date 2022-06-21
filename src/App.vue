@@ -13,6 +13,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@limm/windi-css-uni/src/index.scss';
+@import '@/uni_modules/limm-windi-css-uniapp/index.scss';
 @import '@/uni_modules/uview-ui/index.scss';
 </style>
