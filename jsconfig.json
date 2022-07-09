@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "jsx": "preserve",
     "paths": {
       "@/*": ["src/*"],
-      "#root/*": ["./*"]
+      "@root/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "dist"],
@@ -16,7 +17,9 @@
       "stable",
       "source-map",
       "defer-to-connect",
-      "ismobilejs"
+      "ismobilejs",
+      "@dcloudio/types"
     ]
-  }
+  },
+  "vueCompilerOptions": { "experimentalCompatMode": 2 }
 }
