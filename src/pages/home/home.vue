@@ -1,10 +1,10 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/images/logo.png"></image>
+    <image class="logo" src="/static/images/logo.png" />
     <view>
       <text class="title">{{ title }}</text>
     </view>
-    <u-button @tap="onTestRequest" type="primary" text="测试请求"></u-button>
+    <u-button @tap="onTestRequest" type="primary" text="测试请求" />
   </view>
 </template>
 
