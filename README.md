@@ -18,7 +18,7 @@ git clone https://github.com/SunSeekerX/uniapp-project.git
 yarn # 记得安装 yarn! 已经配置了淘宝镜像仓库，配置文件在 .yarnrc.yml
 ```
 
-把项目拖到 `HbuilderX` 运行就行了。
+把项目拖到 HbuilderX 运行就行了。
 
 ## 项目亮点
 
