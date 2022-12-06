@@ -5,6 +5,9 @@
       <text class="title">{{ title }}</text>
     </view>
     <u-button @tap="onTestRequest" type="primary" text="测试请求" />
+    <view>
+      <text class="title">{{ res }}</text>
+    </view>
   </view>
 </template>
 
@@ -14,6 +17,7 @@ export default {
   data() {
     return {
       title: 'Hello',
+      res: '',
     }
   },
   onLoad() {},
@@ -22,6 +26,7 @@ export default {
       const res = await this.$api.Express.get()
       if (res.success) {
         console.log(res)
+        this.res = res
       } else {
         this.$utools.toast(res.msg)
       }

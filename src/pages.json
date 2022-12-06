@@ -6,25 +6,25 @@
     {
       "path": "pages/home/home",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "首页"
       }
     },
     {
       "path": "pages/find/find",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "发现"
       }
     },
     {
       "path": "pages/message/message",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "消息"
       }
     },
     {
       "path": "pages/mine/mine",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "我的"
       }
     }
   ],

@@ -1,11 +1,3 @@
-/**
- * 测试请求对象
- * @author: SunSeekerX
- * @Date: 2021-09-17 17:40:07
- * @LastEditors: SunSeekerX
- * @LastEditTime: 2021-09-17 19:47:28
- */
-
 import { expressRequest } from '@/utils/request'
 
 export default {

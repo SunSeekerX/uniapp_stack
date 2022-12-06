@@ -1,12 +1,8 @@
-/**
- * 导入依赖库
- */
+// 导入依赖库
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-/**
- * 挂载全局组件和安装插件
- */
+// 挂载全局组件和安装插件
 Vue.use(Vuex)
 
 export default new Vuex.Store({
