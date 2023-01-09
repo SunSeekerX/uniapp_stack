@@ -44,3 +44,4 @@ unpackage/debug/
 unpackage/resources/
 unpackage/cache/
 nativeplugins/*.zip
+unpackage/dist/
