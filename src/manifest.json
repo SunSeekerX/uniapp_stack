@@ -119,7 +119,8 @@
         "usingComponents" : true,
         "setting" : {
             "urlCheck" : false
-        }
+        },
+        "appid" : "testAppId"
     },
     "mp-qq" : {
         "usingComponents" : true,
