@@ -4,10 +4,6 @@ src/components/uni-*
 src/components-nvue/
 # 忽略原生插件
 nativeplugins/
-src/res/
-src/static/
-uni_modules
-
 # 忽略打包的文件
 src/unpackage/
 # 忽略静态文件
@@ -16,3 +12,4 @@ src/static/
 src/utils/libs/
 # uni_modules
 uni_modules
+# 项目相关

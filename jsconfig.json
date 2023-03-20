@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "jsx": "preserve",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "allowJs": true,
-    "types": ["@dcloudio/types", "miniprogram-api-typings", "mini-types"]
-  },
-  "exclude": ["node_modules", "dist"]
+    "types": [
+      "@dcloudio/types",
+      "miniprogram-api-typings",
+      "mini-types"
+    ]
+  }
 }

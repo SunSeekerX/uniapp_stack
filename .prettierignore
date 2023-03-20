@@ -12,3 +12,5 @@ src/static/
 src/utils/libs/
 # uni_modules
 uni_modules
+# 项目相关
+.npmrc
