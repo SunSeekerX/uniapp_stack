@@ -1,11 +1,3 @@
-/**
- * 导出所有请求对象，支持不同的baseUrl
- * @author: SunSeekerX
- * @Date: 2020-05-18 23:09:33
- * @LastEditors: SunSeekerX
- * @LastEditTime: 2021-09-17 20:01:22
- */
-
 import createRequest from './request'
 import getEnv from '@/config/index'
 

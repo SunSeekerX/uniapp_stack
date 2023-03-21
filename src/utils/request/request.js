@@ -1,11 +1,3 @@
-/**
- * 请求对象
- * @author: SunSeekerX
- * @Date: 2020-05-19 14:38:47
- * @LastEditors: SunSeekerX
- * @LastEditTime: 2021-09-17 21:33:41
- */
-
 import { Request } from '@/uni_modules/limm-utools'
 
 /**
