@@ -1,8 +1,8 @@
-# uni-app-project 技术中台
+# uni-app-project-cli 技术中台
 
 vue2 + vuex + eslint + prettier + stylelint + lint-staged + husky
 
-- 项目地址: [Github](https://github.com/SunSeekerX/uni-app-project)
+- 项目地址: [Github](https://github.com/SunSeekerX/uni-app-project-cli)
 - 博客地址: [https://yoouu.cn/](https://yoouu.cn/)
 - 当我们日复一日年复一年的搬砖的时候，你是否曾想过提升一下开发效率，如果一个通用的架构摆在你的面前，你还会选择自己搭架构么，但是搭建出一个好的架构并非易事，有多少人愿意选择去做，还有多少人选择努力去做好，可能寥寥无几，但是你今天看到的，正是你所想要的，一个真正能解决你开发新项目时最大痛点的架构工程，你不需要再麻木 Copy 原有旧项目的代码，只需改动少量代码就能得到想要的效果，你会发现开发新项目其实是一件很快乐的事。
 
@@ -11,7 +11,7 @@ vue2 + vuex + eslint + prettier + stylelint + lint-staged + husky
 克隆项目
 
 ```shell
-git clone https://github.com/SunSeekerX/uni-app-project.git
+git clone https://github.com/SunSeekerX/uni-app-project-cli.git
 ```
 
 安装依赖
@@ -73,7 +73,7 @@ yarn pkg:sort
 - 常用集成：[uView UI](https://www.uviewui.com/)、[windi-css-uni](https://github.com/SunSeekerX/uni-app-starter/tree/main/packages/windi-css-uni)、[utools](https://utools.yoouu.cn/)
 - 代码注释：项目内有非常完善的代码注释，对每个模块的作用做了仔细的说明
 - 代码统一：对项目中常见的代码进行了封装，或是封装到工具类中、或者封装到框架中，不追求过度封装，根据实际场景和代码维护性考虑，尽量保证同一个功能的代码在项目中不重复。
-- 敏捷开发：一个 App 大概率会出现的功能已经写好，对项目的敏捷开发起到了至关重要的作用，可用于新项目开发或者旧项目重构，可将开发周期缩短近一半的时间，并且后续不会因为前期的快速开发而留下成堆的技术遗留问题，万丈高楼平地起，uni-app-project 属于基建工程，而在软件行业我们称之为技术中台。
+- 敏捷开发：一个 App 大概率会出现的功能已经写好，对项目的敏捷开发起到了至关重要的作用，可用于新项目开发或者旧项目重构，可将开发周期缩短近一半的时间，并且后续不会因为前期的快速开发而留下成堆的技术遗留问题，万丈高楼平地起，uni-app-project-cli 属于基建工程，而在软件行业我们称之为技术中台。
 - 开发约束：集成 eslint + prettier + stylelint + lint-staged + husky 对从开发到提交至仓库过程进行代码质量把控，保持团队整体风格统一。
 
 ## 食用指南
@@ -81,7 +81,7 @@ yarn pkg:sort
 ### 项目结构
 
 ```
-uni-app-project
+uni-app-project-cli
 ├── .husky						# Husky 的 Git 钩子配置
 │   ├── _						# Husky 的 Git 钩子配置，执行 yarn 会自动安装出来，不提交到 git
 │   │   └── husky.sh

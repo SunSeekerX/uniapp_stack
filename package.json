@@ -1,8 +1,8 @@
 {
-  "name": "uni-app-project",
-  "version": "0.1.0",
+  "name": "uni-app-project-cli",
+  "version": "1.0.1",
   "private": true,
-  "repository": "https://github.com/SunSeekerX/uni-app-project",
+  "repository": "https://github.com/SunSeekerX/uni-app-project-cli",
   "license": "No License",
   "author": "SunSeekerX",
   "scripts": {

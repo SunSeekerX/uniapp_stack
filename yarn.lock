@@ -15944,9 +15944,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uni-app-project@workspace:.":
+"uni-app-project-cli@workspace:.":
   version: 0.0.0-use.local
-  resolution: "uni-app-project@workspace:."
+  resolution: "uni-app-project-cli@workspace:."
   dependencies:
     "@dcloudio/types": ^3.3.2
     "@dcloudio/uni-app": 2.0.2-3070320230222001
