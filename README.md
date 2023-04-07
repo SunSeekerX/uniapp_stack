@@ -94,57 +94,62 @@ yarn pkg:sort
 ### 项目结构
 
 ```
-uni-app-project-cli
-├── .husky						# Husky 的 Git 钩子配置
-│   ├── _						# Husky 的 Git 钩子配置，执行 yarn 会自动安装出来，不提交到 git
-│   │   └── husky.sh
-│   └── pre-commit				# Husky 的 Git 钩子配置, 代码 commit 之前会执行这里面的命令
-├── .vscode						# Vscode 插件配置目录
-│   └── settings.json			# └── 目前只有拼写检查插件的配置 “Code Spell Checker”
-├── assets						# 项目资源目录，可以存放一些说明，设计稿，历史 logo 等资源
-│   └── logo.png				# └── 存放的 logo
+├── .hbuilderx
+│   └── launch.json
+├── .husky
+│   ├── _
+│   └── pre-commit
+├── .vscode
+│   └── settings.json
+├── .yarn
+│   ├── plugins
+│   └── releases
+├── assets
+│   └── logo.png
 ├── public
 │   └── index.html
 ├── src
-│   ├── apis					# 网络请求的 api
-│   ├── components				# 组件
-│   ├── config					# 环境变量
-│   ├── constant				# 常量
-│   ├── pages					# 项目内的页面
-│   ├── static					# 静态文件目录
-│   │   ├── images				# └── 静态的图片
-│   │   └── js					# └── 不需要被打包的 js 库
-│   ├── store					# Vuex
-│   ├── styles					# 公共样式
-│   ├── uni_modules				# uni_modules
-│   │   └── uview-ui
-│   ├── utils					# 工具
-│   │   ├── libs				# 需要打包的 js 库
-│   │   ├── request				# 网络请求
+│   ├── apis
+│   ├── config
+│   ├── constant
+│   ├── pages
+│   ├── static
+│   ├── store
+│   ├── styles
+│   ├── uni_modules
+│   ├── utils
 │   ├── App.vue
-│   ├── androidPrivacy.json		# 安卓用户隐私和服务政策说明
-│   ├── main.js					# 项目入口
-│   ├── manifest.json			# uni-app 项目配置
-│   ├── pages.json				# uni-app 页面配置
-│   └── uni.scss				# uni-app 全局的 scss 变量
-├── unpackage					# uni-app 生成的 logo 等未打包的资源
-├── .eslintignore				# eslint 检查忽略配置
-├── .eslintrc.js				# eslint 配置
-├── .prettierignore				# prettier 格式化忽略配置
-├── .stylelintignore			# stylelint 检查忽略配置
-├── .yarnrc.yml			# prettier 配置
-├── README.md					# 项目说明
+│   ├── androidPrivacy.json
+│   ├── main.js
+│   ├── manifest.json
+│   ├── pages.json
+│   └── uni.scss
+├── .editorconfig
+├── .eslintignore
+├── .eslintrc.js
+├── .gitattributes
+├── .gitignore
+├── .npmrc
+├── .prettierignore
+├── .prettierrc.yaml
+├── .stylelintignore
+├── .yarnrc.yml
+├── CHANGELOG.md
+├── README-uni.md
+├── README.md
+├── androidPrivacy.json
 ├── babel.config.js
-├── jsconfig.json				# Vscode 能识别项目类型提供代码跳转到定义的功能
+├── jsconfig.json
 ├── package.json
 ├── postcss.config.js
-├── stylelint.config.js			# stylelint 配置
+├── stylelint.config.js
+└── yarn.lock
 ```
 
 **生成命令**
 
 ```shell
-tree -L 2 -I "node_modules" --dirsfirst
+tree -L 2 --gitignore --dirsfirst -a -I ".git"
 ```
 
 ### 你需要修改的信息
