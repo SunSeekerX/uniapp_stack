@@ -28,6 +28,19 @@ yarn
 
 scripts 里面包含了一些额外的命令
 
+### 官方升级命令
+
+```shell
+# 更新到最新正式版
+npx @dcloudio/uvm
+# 更新到最新 alpha 版
+npx @dcloudio/uvm alpha
+# 更新到正式版指定版本
+npx @dcloudio/uvm 3.2.0
+# 更新到 alpha 版指定版本
+npx @dcloudio/uvm 3.2.0-alpha
+```
+
 ### 提交代码
 
 我提交代码喜欢用这个，但是用到了 commitizen 这个插件（用来规范提交信息的），你想用可以看 [规范提交代码](https://doc.yoouu.cn/front-end/npm/#%F0%9F%93%8C-%E8%A7%84%E8%8C%83%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81) 说明
@@ -70,7 +83,7 @@ yarn pkg:sort
 
 ## 项目亮点
 
-- 常用集成：[uView UI](https://www.uviewui.com/)、[windi-css-uni](https://github.com/SunSeekerX/uni-app-starter/tree/main/packages/windi-css-uni)、[utools](https://utools.yoouu.cn/)
+- 常用集成：[uView UI](https://www.uviewui.com/)、[limm-windi-css-uniapp](https://ext.dcloud.net.cn/plugin?id=8575)、[limm-utools](https://ext.dcloud.net.cn/plugin?id=8574)
 - 代码注释：项目内有非常完善的代码注释，对每个模块的作用做了仔细的说明
 - 代码统一：对项目中常见的代码进行了封装，或是封装到工具类中、或者封装到框架中，不追求过度封装，根据实际场景和代码维护性考虑，尽量保证同一个功能的代码在项目中不重复。
 - 敏捷开发：一个 App 大概率会出现的功能已经写好，对项目的敏捷开发起到了至关重要的作用，可用于新项目开发或者旧项目重构，可将开发周期缩短近一半的时间，并且后续不会因为前期的快速开发而留下成堆的技术遗留问题，万丈高楼平地起，uni-app-project-cli 属于基建工程，而在软件行业我们称之为技术中台。
@@ -126,6 +139,12 @@ uni-app-project-cli
 ├── package.json
 ├── postcss.config.js
 ├── stylelint.config.js			# stylelint 配置
+```
+
+**生成命令**
+
+```shell
+tree -L 2 -I "node_modules" --dirsfirst
 ```
 
 ### 你需要修改的信息
