@@ -3,11 +3,20 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "paths": {
-      "@/*": ["src/*"],
-      "@root/*": ["./*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@root/*": [
+        "./*"
+      ]
     },
     "allowJs": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/uni_modules/limm-utools/types/index.mp.d.ts"
+    ],
     "types": [
+      "node",
       "@dcloudio/types",
       "miniprogram-api-typings",
       "mini-types"

@@ -6,6 +6,9 @@
  * @LastEditTime: 2021-09-17 17:11:32
  */
 /// <reference types="@dcloudio/types" />
+/// <reference types="@dcloudio/types" />
+/// <reference types="@dcloudio/types" />
+/// <reference types="@dcloudio/types" />
 export interface AnyObject {
     [key: string]: unknown;
 }
@@ -28,22 +31,22 @@ export interface ValidateStatus {
  * 请求拦截器
  */
 export interface ReqInterceptor {
-    (config: RequestConfig | UniApp.UploadFileOption): Promise<RequestConfig | UniApp.UploadFileOption> | RequestConfig | UniApp.UploadFileOption;
+    (config: RequestConfig | UniApp.UploadFileOption, ...others: any[]): Promise<RequestConfig | UniApp.UploadFileOption> | RequestConfig | UniApp.UploadFileOption;
 }
 /**
  * 响应拦截器
  */
 export interface ResInterceptor {
-    (response: UniApp.RequestSuccessCallbackResult | UniApp.UploadFileSuccessCallbackResult): Promise<unknown> | unknown;
+    (response: UniApp.RequestSuccessCallbackResult | UniApp.UploadFileSuccessCallbackResult, ...others: any[]): Promise<unknown> | unknown;
 }
 /**
  * 请求失败拦截器
  */
 export interface ResFailInterceptor {
-    (response: UniApp.RequestSuccessCallbackResult | UniApp.UploadFileSuccessCallbackResult | UniApp.GeneralCallbackResult): Promise<unknown> | unknown;
+    (response: UniApp.RequestSuccessCallbackResult | UniApp.UploadFileSuccessCallbackResult | UniApp.GeneralCallbackResult, ...others: any[]): Promise<unknown> | unknown;
 }
 export interface RequestConfig {
-    header?: unknown;
+    header: {};
     url: string;
     /**
      * 默认为 GET
