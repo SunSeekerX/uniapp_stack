@@ -24,12 +24,12 @@ export default {
   onLoad() {},
   methods: {
     async onTestRequest() {
-      const res = await combined.api.getApi()
-      if (res.success) {
-        console.log(res)
-        this.res = res
+      const getRes = await combined.api.getApi()
+      console.log('getRes>>>', getRes)
+      if (getRes.success) {
+        this.res = getRes
       } else {
-        combined.utools.toast(res.msg)
+        combined.utools.toast(getRes.msg)
       }
     },
   },
