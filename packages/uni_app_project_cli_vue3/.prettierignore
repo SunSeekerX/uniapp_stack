@@ -1,0 +1,5 @@
+nativeplugins
+src/unpackage
+src/static
+uni_modules
+.npmrc

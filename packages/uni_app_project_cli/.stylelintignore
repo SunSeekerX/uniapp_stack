@@ -1,0 +1,16 @@
+# 忽略 uni-app 官方的组件库
+src/components/uni-*
+# 忽略 nvue 组件库
+src/components-nvue/
+# 忽略原生插件
+nativeplugins/
+# 忽略打包的文件
+src/unpackage/
+# 忽略静态文件
+src/static/
+# 忽略第三方库文件
+src/god/libs/
+# uni_modules
+uni_modules
+
+# App

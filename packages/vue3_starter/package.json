@@ -1,0 +1,86 @@
+{
+  "name": "vue3-starter",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build --mode development",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
+    "dev": "vite",
+    "gc": "git add -A && git-cz && git pull && git push",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint:eslint": "eslint --max-warnings 0 --fix --ext \"src/**/*.{vue,less,css,scss,js,jsx,ts,tsx}\"",
+    "lint:lint-staged": "lint-staged",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\" --ignore-unknown",
+    "lint:stylelint": "stylelint --fix \"src/**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "preview": "vite preview"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
+      "prettier --write--parser json"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "*.{scss,less,styl,html}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dayjs": "^1.11.11",
+    "lodash": "^4.17.21",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.27",
+    "vue-i18n": "^9.13.1",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.3",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "autoprefixer": "^10.4.19",
+    "buffer": "^6.0.3",
+    "eslint": "^9.4.0",
+    "eslint-plugin-vue": "^9.26.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
+    "postcss": "^8.4.38",
+    "postcss-html": "^1.7.0",
+    "prettier": "^3.3.1",
+    "process": "^0.11.10",
+    "sass": "1.77.4",
+    "stylelint": "^16.6.1",
+    "stylelint-config-property-sort-order-smacss": "^10.0.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^5.0.0",
+    "stylelint-scss": "^6.3.1",
+    "tailwindcss": "^3.4.4",
+    "unplugin-auto-import": "0.17.6",
+    "unplugin-svg-component": "^0.10.3",
+    "unplugin-vue-components": "^0.27.0",
+    "unplugin-vue-setup-extend-plus": "1.0.1",
+    "vite": "5.2.13",
+    "vite-plugin-compression": "0.5.1",
+    "vite-plugin-svg-icons": "2.0.1",
+    "vite-plugin-vue-devtools": "^7.2.1"
+  }
+}

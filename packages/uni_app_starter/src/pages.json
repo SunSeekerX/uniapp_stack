@@ -1,0 +1,247 @@
+{
+  "pages": [
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    /*-------------find start-------------*/
+    {
+      "path": "pages/find/find",
+      "style": {
+        "navigationBarTitleText": "发现",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/find/uni-app/uni-app",
+      "style": {
+        "navigationBarTitleText": "Uni-app"
+      }
+    },
+    {
+      "path": "pages/find/uni-app/uni-app-component",
+      "style": {
+        "navigationBarTitleText": "Uni-app 组件测试"
+      }
+    },
+    {
+      "path": "pages/find/uni-app/page-height",
+      "style": {
+        "navigationBarTitleText": "Uni-app 页面高度测试",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/find/uni-app/page-height-nvue",
+      "style": {
+        "navigationBarTitleText": "Uni-app 页面高度测试 - nvue",
+        "navigationStyle": "custom"
+      }
+    },
+    /*-------------find end-------------*/
+    {
+      "path": "pages/tools/tools",
+      "style": {
+        "navigationBarTitleText": "工具",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/me/me",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/find/mono-font/mono-font",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/find/font-weight/font-weight",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/find/icon/icon",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "apps/biance-rate/biance-rate",
+      "style": {
+        "navigationBarTitleText": "币安资金费率",
+        "enablePullDownRefresh": true
+      }
+    },
+    /*-------------Pionex start-------------*/
+    {
+      "path": "apps/pionex/index/index",
+      "style": {
+        "navigationBarTitleText": "Pionex",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "apps/pionex/splash/splash",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    /*-------------Pionex end-------------*/
+    /*-------------cnode start-------------*/
+    // 首页
+    {
+      "path": "apps/cnode/pages/index/index",
+      "style": {
+        "enablePullDownRefresh": true,
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "titleNView": {
+            "backgroundColor": "#444444",
+            "titleText": "CNode",
+            "titleColor": "#ffffff",
+            "type": "default"
+          },
+          "bounce": "none"
+        }
+      }
+    },
+    // 详情界面
+    {
+      "path": "apps/cnode/pages/topic-details/topic-details",
+      "style": {
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none",
+          "titleNView": {
+            "backgroundColor": "#444444",
+            "titleText": "CNode details",
+            "type": "default"
+          }
+        }
+      }
+    },
+    /*-------------cnode end-------------*/
+    /*-------------jd-ck start-------------*/
+    {
+      "path": "apps/jd-ck/index/index",
+      "style": {
+        "navigationBarTitleText": "Jd-ck",
+        "enablePullDownRefresh": false
+      }
+    },
+    /*-------------jd-ck end-------------*/
+    /*-------------utools start-------------*/
+    {
+      "path": "apps/utools/pages/index/index",
+      "style": {
+        "navigationBarTitleText": "utools"
+      }
+    },
+    {
+      "path": "apps/utools/pages/encode/encode",
+      "style": {
+        "navigationBarTitleText": "encode"
+      }
+    },
+    {
+      "path": "apps/utools/pages/encrypt/encrypt",
+      "style": {
+        "navigationBarTitleText": "encrypt"
+      }
+    },
+    {
+      "path": "apps/utools/pages/uni-app/uni-app",
+      "style": {
+        "navigationBarTitleText": "uni-app"
+      }
+    },
+    {
+      "path": "apps/utools/pages/uni-app/route",
+      "style": {
+        "navigationBarTitleText": "route"
+      }
+    },
+    {
+      "path": "apps/utools/pages/validate/validate",
+      "style": {
+        "navigationBarTitleText": "validate"
+      }
+    },
+    {
+      "path": "apps/utools/pages/random/random",
+      "style": {
+        "navigationBarTitleText": "random"
+      }
+    }
+    /*-------------utools end-------------*/
+    // #ifdef H5
+    ,
+    /*-------------Dapp Browser start-------------*/
+    /*-------------web only-------------*/
+    {
+      "path": "apps/dapp-browser/pages/index/index",
+      "style": {
+        "navigationBarTitleText": "Dapp 浏览器"
+      }
+    }
+    /*-------------Dapp Browser end-------------*/
+    // #endif
+  ],
+  "globalStyle": {
+    "pageOrientation": "portrait",
+    "navigationBarTitleText": "uni-app-starter",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F6F6F6",
+    "backgroundColorTop": "#F6F6F6",
+    "backgroundColorBottom": "#F6F6F6",
+    "app-plus": {
+      "bounce": "none"
+    }
+  },
+  "tabBar": {
+    "color": "#8894AB",
+    "selectedColor": "#2979ff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "static/images/tab-bar/home.png",
+        "selectedIconPath": "static/images/tab-bar/home-selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "iconPath": "static/images/tab-bar/find.png",
+        "selectedIconPath": "static/images/tab-bar/find-selected.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/tools/tools",
+        "iconPath": "static/images/tab-bar/tools.png",
+        "selectedIconPath": "static/images/tab-bar/tools-selected.png",
+        "text": "工具"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "iconPath": "static/images/tab-bar/me.png",
+        "selectedIconPath": "static/images/tab-bar/me-selected.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

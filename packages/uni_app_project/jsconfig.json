@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "skipLibCheck": true,
+    "types": ["node", "@dcloudio/types", "miniprogram-api-typings", "mini-types"]
+  },
+  "include": ["./"],
+  "exclude": ["node_modules", "dist"]
+}
