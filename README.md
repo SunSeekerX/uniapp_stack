@@ -14,7 +14,7 @@
 
   vue3 版本
 
-- uni_app_starter https://github.com/SunSeekerX/uniapp_stack/tree/main/packages/uni_app_starter
+- uni_app_starter_vue2 https://github.com/SunSeekerX/uniapp_stack/tree/main/packages/uni_app_starter_vue2
 
   集成业务解决方案，就是很多示例集合的 demo，可以看看是怎么实现的。
 

@@ -1,10 +1,13 @@
 {
-  "name": "uni-app-starter",
+  "name": "uni_app_starter_vue2",
   "version": "1.0.0",
   "private": true,
   "repository": "https://github.com/SunSeekerX/uni-app-starter",
   "license": "MIT",
   "author": "SunSeekerX",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "npm run build:h5",
     "build:app-plus": "cross-env NODE_ENV=production UNI_PLATFORM=app-plus vue-cli-service uni-build",
@@ -159,5 +162,6 @@
   },
   "uni-app": {
     "scripts": {}
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }
