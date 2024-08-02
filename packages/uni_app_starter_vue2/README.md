@@ -1,4 +1,6 @@
-# **[uni-app-starter](https://github.com/SunSeekerX/uni-app-starter)**
+# uni_app_starter_vue2
+
+https://uas-vue2.yoouu.cn/
 
 **一切伟大的行动和思想,都有一个微不足道的开始。**
 
