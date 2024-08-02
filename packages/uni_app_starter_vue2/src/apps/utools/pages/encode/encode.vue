@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import utools from '@root/packages/limm-utools'
+import utools from '@root/packages/limm_utools'
 import AppOutput from '../../components/app-output/app-output'
 import AppOperationContent from '../../components/app-operation-content/app-operation-content'
 import AppOperationInput from '../../components/app-operation-input/app-operation-input'

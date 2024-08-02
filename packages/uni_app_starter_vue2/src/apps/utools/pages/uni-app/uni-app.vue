@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import utools from '@root/packages/limm-utools'
+import utools from '@root/packages/limm_utools'
 
 import combined from '@/utils/combined'
 

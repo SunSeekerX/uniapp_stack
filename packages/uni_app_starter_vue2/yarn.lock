@@ -2600,9 +2600,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@limm/utools@workspace:packages/limm-utools":
+"@limm/utools@workspace:packages/limm_utools":
   version: 0.0.0-use.local
-  resolution: "@limm/utools@workspace:packages/limm-utools"
+  resolution: "@limm/utools@workspace:packages/limm_utools"
   dependencies:
     "@dcloudio/types": "npm:*"
     "@limm/jsencrypt-mp": "npm:3.2.2-0"

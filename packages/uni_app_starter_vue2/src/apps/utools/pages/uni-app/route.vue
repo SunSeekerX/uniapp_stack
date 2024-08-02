@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import utools from '@root/packages/limm-utools'
+import utools from '@root/packages/limm_utools'
 
 export default {
   name: 'UtoolsUniAppRouteNavigateTo',

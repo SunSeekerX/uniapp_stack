@@ -1,7 +1,7 @@
 import dark from '@/common/js/theme/dark'
 import light from '@/common/js/theme/light'
 import { THEMES, STORAGE_APP_THEME, STORAGE_APP_THEME_MODEL } from '@/constant'
-import { getUIStyle } from '@/uni_modules/limm-utools'
+import { getUIStyle } from '@/uni_modules/limm_utools'
 import { themeModel as defaultThemeModel } from '@/config/default'
 
 let appTheme = uni.getStorageSync(STORAGE_APP_THEME)

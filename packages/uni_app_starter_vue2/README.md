@@ -35,7 +35,7 @@ pnpm i
 项目内带了一个 uni-app 开发工具包，需要手动构建。
 
 ```shell
-cd packages/limm-utools/
+cd packages/limm_utools/
 # 构建
 yarn build
 ```

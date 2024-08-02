@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import utools from '@root/packages/limm-utools'
+import utools from '@root/packages/limm_utools'
 
 /**
  * LogUtil 实用性不强，待废弃

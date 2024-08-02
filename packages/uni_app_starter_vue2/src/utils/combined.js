@@ -3,7 +3,7 @@ import * as util from '@/utils'
 import * as constant from '@/constant'
 import getEnv from '@/config'
 import * as handleError from '@/utils/handle-error' // 错误处理
-import utools from '@/uni_modules/limm-utools' // utools
+import utools from '@/uni_modules/limm_utools' // utools
 
 const combined = {
   api,

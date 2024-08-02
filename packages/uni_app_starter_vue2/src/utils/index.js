@@ -1,4 +1,4 @@
-import { ValidateUtil } from '@/uni_modules/limm-utools'
+import { ValidateUtil } from '@/uni_modules/limm_utools'
 
 // 生成从minNum到maxNum的随机数
 export function randomNum(minNum, maxNum) {
