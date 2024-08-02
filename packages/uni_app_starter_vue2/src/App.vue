@@ -36,7 +36,7 @@ export default defineComponent({
 
 <style lang="scss">
 // @import '../packages/limm-markrgba-css/src/index.scss'; /* Some magic css */
-@import '../packages/limm-windi-css-uni/src/index.scss';
+@import '../packages/limm_windi_css_uni/src/index.scss';
 
 /* #ifndef APP-NVUE */
 
