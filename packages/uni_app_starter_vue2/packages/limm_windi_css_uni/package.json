@@ -7,13 +7,13 @@
     "windicss",
     "uni-app"
   ],
-  "homepage": "https://github.com/SunSeekerX/uni-app-starter/tree/main/packages/limm-windi-css-uni",
+  "homepage": "https://github.com/SunSeekerX/uniapp_stack/tree/main/packages/uni_app_starter_vue2/packages/limm_windi_css_uni",
   "bugs": {
-    "url": "https://github.com/SunSeekerX/uni-app-starter/issues"
+    "url": "https://github.com/SunSeekerX/uniapp_stack/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SunSeekerX/uni-app-starter.git"
+    "url": "git+https://github.com/SunSeekerX/uniapp_stack.git"
   },
   "license": "MIT",
   "author": "SunSeekerX",

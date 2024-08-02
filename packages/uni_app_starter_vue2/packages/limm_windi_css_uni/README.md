@@ -2,7 +2,7 @@
 
 ## 1️⃣ 简介
 
-Github：[https://github.com/SunSeekerX/uni-app-starter/tree/main/packages/limm-windi-css-uni](https://github.com/SunSeekerX/uni-app-starter/tree/main/packages/limm-windi-css-uni)
+Github：https://github.com/SunSeekerX/uniapp_stack/tree/main/packages/uni_app_starter_vue2/packages/limm_windi_css_uni
 
 这是一些 css 的简写类名的库，用于快速开发 uni-app。适用于 vue+nvue 文件。类名的设计参考了 [windicss](https://github.com/windicss/windicss) 的类名。
 
