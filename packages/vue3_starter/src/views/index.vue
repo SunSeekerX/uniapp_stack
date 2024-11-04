@@ -1,5 +1,5 @@
 <script setup>
-import * as god from '@/god'
+import * as kiwi from '@/kiwi'
 
 const mState = reactive({
   title: 'Hello',
@@ -7,7 +7,7 @@ const mState = reactive({
 })
 
 const onTestRequest = async () => {
-  const res = await god.api.getApi()
+  const res = await kiwi.api.getApi()
   console.log('res>>>', res)
   if (res.success) {
     mState.res = res

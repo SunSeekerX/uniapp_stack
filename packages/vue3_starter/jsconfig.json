@@ -17,6 +17,7 @@
     "src/**/*.jsx",
     "src/**/*.vue",
     "src/**/*.d.ts",
-    "vue-shim.d.ts"
+    "vue-shim.d.ts",
+    "vite-env.d.ts"
   ]
 }
