@@ -1,14 +1,13 @@
 import { createI18n } from 'vue-i18n'
-import axios from 'axios'
-import { isNil, isPlainObject } from 'lodash'
-import dayjs from 'dayjs'
+import { dayjs, lodash, axios } from './libs'
 
-// import { storageAppLocale } from '@/constant'
 import zh_CN from './locales/zh-cn'
 import en_US from './locales/en'
 import zh_TW from './locales/zh-tw'
 
-export { dayjs }
+import * as utilBase from './util_base'
+
+export * from './libs'
 
 // Constant
 export const constant = {
@@ -21,6 +20,7 @@ export const env = {
   viteBaseUrl: import.meta.env.VITE_BASE_URL,
   viteSiteName: import.meta.env.VITE_SITE_NAME,
   viteBuildCompress: import.meta.env.VITE_BUILD_COMPRESS,
+  // @ts-ignore
   viteIsProd: import.meta.env.PROD === 'production',
 }
 
@@ -49,6 +49,7 @@ const onGetEnvLocale = () => {
   // }
 
   if (!localeKey) {
+    // @ts-ignore
     let lang = navigator.language || navigator.userLanguage
     lang = lang.substr(0, 2)
     if (lang === 'zh') {
@@ -88,53 +89,9 @@ export const i18n = createI18n({
   },
 })
 export const t = i18n.global.t
-export const getDayjsLocale = () => {
-  const curLocale = i18n.global.locale
-  switch (curLocale) {
-    case defaultConfig.locales.EN_US.value:
-      return 'en'
-    case defaultConfig.locales.ZH_CN.value:
-      return 'zh-cn'
-    default:
-      return 'en'
-  }
-}
-
-// Tools
-export const tools = {
-  /**
-   * 去除对象中有key为undefined或者null的情况
-   * @param { Object } obj
-   * @returns { Object } 处理完成之后的对象
-   */
-  removeEmptyKey: (obj = {}, remove = true) => {
-    for (const [key, value] of Object.entries(obj)) {
-      if (isNil(value) || value === '') {
-        remove ? delete obj[key] : (obj[key] = undefined)
-      }
-      if (isPlainObject(value)) {
-        removeEmptyKey(value)
-      }
-    }
-    return obj
-  },
-
-  isValidUrl: (urlString) => {
-    const urlPattern = new RegExp(
-      '^(https?:\\/\\/)?' + // validate protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // validate domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // validate OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // validate port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // validate query string
-        '(\\#[-a-z\\d_]*)?$',
-      'i',
-    ) // validate fragment locator
-    return !!urlPattern.test(urlString)
-  },
-}
 
 // Apis
-const createRequest = (axiosOptions, createOptions) => {
+export const createRequest = (axiosOptions, createOptions) => {
   createOptions = Object.assign(
     {
       packErr: true,
@@ -147,48 +104,55 @@ const createRequest = (axiosOptions, createOptions) => {
     Object.assign(
       {
         withCredentials: false,
-        timeout: 15000,
+        // timeout: 90000,
       },
       axiosOptions,
     ),
   )
 
   instance.interceptors.request.use(
-    (config) => {
+    config => {
       if (config.method.toUpperCase() === 'GET') {
-        tools.removeEmptyKey(config.params, false)
+        utilBase.cleanObject(config.params, {
+          removeEmpty: true,
+          mutate: true,
+        })
       } else {
-        removeEmptyKey(config.data, false)
+        utilBase.cleanObject(config.data, {
+          removeEmpty: true,
+          mutate: true,
+        })
       }
       return config
     },
-    (error) => Promise.reject(error),
+    error => Promise.reject(error),
   )
 
   instance.interceptors.response.use(
-    (response) => response.data,
-    (error) => {
+    response => response.data,
+    error => {
       console.error(error)
-      const result = {
+      const ret = {
         success: false,
+        code: -1,
         error: (error?.toJSON && error?.toJSON()) || error,
       }
       if (error.response) {
         const { data } = error.response
-        result['code'] = data.code || 500
-        result['msg'] = data.msg || data.message || 'Server response error'
-        result['response'] = error.response
+        ret['code'] = data.code || 500
+        ret['msg'] = data.msg || data.message || 'Server response error'
+        ret['response'] = error.response
       } else if (error.request) {
-        result['code'] = 400
-        result['msg'] = error.message || 'Network error'
+        ret['code'] = 400
+        ret['msg'] = error.message || 'Network error'
       } else {
-        result['code'] = 400
-        result['msg'] = error.message || 'App error'
+        ret['code'] = 400
+        ret['msg'] = error.message || 'App error'
       }
       if (packErr) {
-        return Promise.resolve(result)
+        return Promise.resolve(ret)
       } else {
-        return Promise.reject(result)
+        return Promise.reject(ret)
       }
     },
   )
@@ -196,10 +160,10 @@ const createRequest = (axiosOptions, createOptions) => {
   return instance
 }
 const req = createRequest({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: env.viteBaseUrl,
 })
 export const api = {
-  getApi: (data) => req({ url: '/get', method: 'GET', data }),
+  getApi: data => req({ url: '/get', method: 'GET', data }),
 }
 
 // Store
@@ -210,7 +174,6 @@ export const store = {
     function increment() {
       count.value++
     }
-
     return { count, doubleCount, increment }
   }),
 }

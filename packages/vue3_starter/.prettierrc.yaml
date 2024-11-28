@@ -7,9 +7,9 @@ quoteProps: as-needed
 jsxSingleQuote: true
 trailingComma: all
 bracketSpacing: true
-arrowParens: always
+arrowParens: 'avoid'
 proseWrap: never
-htmlWhitespaceSensitivity: strict
+htmlWhitespaceSensitivity: ignore
 vueIndentScriptAndStyle: false
 endOfLine: auto
 overrides:

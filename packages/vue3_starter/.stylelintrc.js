@@ -34,5 +34,6 @@ export default {
     'import-notation': 'string',
     'no-empty-source': null,
     'property-no-unknown': null,
+    'keyframes-name-pattern': null,
   },
 }

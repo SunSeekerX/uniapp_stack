@@ -1,34 +1,57 @@
-import fs from 'fs'
 import { fileURLToPath, URL } from 'node:url'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 // import Components from 'unplugin-vue-components/vite'
 // import { ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+// import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import setupExtend from 'unplugin-vue-setup-extend-plus/vite'
 import compression from 'vite-plugin-compression'
-import VueDevTools from 'vite-plugin-vue-devtools'
+// import VueDevTools from 'vite-plugin-vue-devtools'
+import { createHtmlPlugin } from 'vite-plugin-html'
+// Refer https://gist.github.com/FbN/0e651105937c8000f10fefdf9ec9af3d
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 
-import { dayjs } from './src/kiwi/libs'
+// yarn add --dev @esbuild-plugins/node-globals-polyfill
+// import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+// yarn add --dev @esbuild-plugins/node-modules-polyfill
+// import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
+// You don't need to add this to deps, it's included by @esbuild-plugins/node-modules-polyfill
+// import rollupNodePolyFill from 'rollup-plugin-node-polyfills'
+import { polyfillNode } from 'esbuild-plugin-polyfill-node'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
-  const env = loadEnv(mode, process.cwd())
+  const env = loadEnv(mode, process.cwd(), '')
   const isBuild = command.includes('build')
+  const isProduction = mode === 'production'
   const { VITE_BUILD_COMPRESS } = env
 
   const plugins = [
-    VueDevTools(),
+    // VueDevTools(),
     vue(),
+    createHtmlPlugin({
+      minify: true,
+      /**
+       * ��������и����Զ�������
+       * @see https://github.com/vbenjs/vite-plugin-html
+       */
+    }),
     AutoImport({
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
       imports: ['vue', 'vue-router', 'pinia'],
       defaultExportByFilename: false,
       dirs: [],
       dts: './src/auto-imports.d.ts',
-      vueTemplate: false,
+      // vueTemplate: false,
       eslintrc: {
         enabled: true,
         filepath: './.eslintrc-auto-import.json',
@@ -40,11 +63,58 @@ export default defineConfig(({ mode, command }) => {
     //   resolvers: [ElementPlusResolver(), NaiveUiResolver()],
     // }),
     setupExtend({}),
-    createSvgIconsPlugin({
-      iconDirs: [path.resolve(process.cwd(), 'src/static/images/svg')],
-      symbolId: 'icon-[dir]-[name]',
-      customDomId: '__svg__icons__dom__',
-    }),
+    // createSvgIconsPlugin({
+    //   iconDirs: [path.resolve(process.cwd(), 'src/components/svg_icon/svgs')],
+    //   symbolId: 'icon-[dir]-[name]',
+    //   // svgoOptions: command === 'build',
+    //   customDomId: '__svg__icons__dom__',
+    //   svgoOptions: {
+    //     full: true,
+    //     plugins: [
+    //       {
+    //         name: 'removeAttrs',
+    //         params: {
+    //           // (fill|stroke)
+    //           attrs: ['fill'],
+    //         },
+    //       },
+    //     ],
+    //   },
+    // }),
+    // createSvgIconsPlugin({
+    //   // iconDirs: [path.resolve(process.cwd(), 'src/components/svg_icon/svgs')],
+    //   iconDirs: [
+    //     path.resolve(process.cwd(), 'src/components/svg_icon/colored'),
+    //     path.resolve(process.cwd(), 'src/components/svg_icon/mono'),
+    //   ],
+    //   symbolId: 'icon-[dir]-[name]',
+    //   customDomId: '__svg__icons__dom__',
+    //   // svgoOptions: {
+    //   //   plugins: [
+    //   //     {
+    //   //       name: 'removeAttrs',
+    //   //       params: {
+    //   //         attrs: {
+    //   //           // 基础属性，所有图标都移除
+    //   //           '*': ['class', 'data-name'],
+    //   //           // mono 文件夹下的图标额外移除颜色属性
+    //   //           'src/components/svg_icon/mono/*.svg': ['fill', 'stroke'],
+    //   //         },
+    //   //       },
+    //   //     },
+    //   //     {
+    //   //       name: 'addAttributesToSVGElement',
+    //   //       params: {
+    //   //         attribute: {
+    //   //           'src/components/svg_icon/mono/*.svg': {
+    //   //             fill: 'currentColor',
+    //   //           },
+    //   //         },
+    //   //       },
+    //   //     },
+    //   //   ],
+    //   // },
+    // }),
     {
       name: 'log-build-info-dev',
       apply: 'serve',
@@ -100,36 +170,121 @@ export default defineConfig(({ mode, command }) => {
     }
   }
 
-  return {
+  /** @type {import('vite').UserConfig} */
+  const config = {
     build: {
       target: 'es2020',
-      chunkSizeWarningLimit: 1500,
+      chunkSizeWarningLimit: 5000,
+      sourcemap: !isProduction,
+      rollupOptions: {
+        onwarn(warning, warn) {
+          // ���� eval ʹ�õľ���
+          if (warning.code === 'EVAL' && warning.id.includes('bip39-libs.js')) {
+            return
+          }
+          // �����������棬ʹ��Ĭ�ϵľ��洦��
+          warn(warning)
+        },
+        plugins: [
+          // Enable rollup polyfills plugin
+          // used during production bundling
+          // rollupNodePolyFill(),
+        ],
+        // commonjsOptions: {
+        //   transformMixedEsModules: true,
+        // },
+      },
+      assetsInlineLimit: 4096, // 4kb以下的svg会被转为base64
     },
     optimizeDeps: {
       esbuildOptions: {
         target: 'es2020',
+        define: {
+          global: 'globalThis',
+        },
+        // Enable esbuild polyfill plugins
+        plugins: [
+          // NodeGlobalsPolyfillPlugin({
+          //   process: true,
+          //   buffer: true,
+          // }),
+          // NodeModulesPolyfillPlugin(),
+          polyfillNode({
+            // Options (optional)
+          }),
+        ],
       },
     },
     plugins,
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
+        // 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
+        // web3: './node_modules/web3/dist/web3.min.js',
         process: 'process/browser',
-        util: 'util',
+        // util: 'util',
+        crypto: 'crypto-browserify',
+        // stream: 'stream-browserify',
+        // zlib: 'browserify-zlib',
+        // assert: 'assert',
+
+        util: 'rollup-plugin-node-polyfills/polyfills/util',
+        sys: 'util',
+        events: 'rollup-plugin-node-polyfills/polyfills/events',
+        stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+        path: 'rollup-plugin-node-polyfills/polyfills/path',
+        querystring: 'rollup-plugin-node-polyfills/polyfills/qs',
+        // punycode: 'rollup-plugin-node-polyfills/polyfills/punycode',
+        punycode: path.resolve(__dirname, 'node_modules/punycode/punycode.js'),
+        url: 'rollup-plugin-node-polyfills/polyfills/url',
+        // string_decoder: 'rollup-plugin-node-polyfills/polyfills/string-decoder',
+        http: 'rollup-plugin-node-polyfills/polyfills/http',
+        https: 'rollup-plugin-node-polyfills/polyfills/http',
+        os: 'rollup-plugin-node-polyfills/polyfills/os',
+        assert: 'rollup-plugin-node-polyfills/polyfills/assert',
+        constants: 'rollup-plugin-node-polyfills/polyfills/constants',
+        _stream_duplex: 'rollup-plugin-node-polyfills/polyfills/readable-stream/duplex',
+        _stream_passthrough: 'rollup-plugin-node-polyfills/polyfills/readable-stream/passthrough',
+        _stream_readable: 'rollup-plugin-node-polyfills/polyfills/readable-stream/readable',
+        _stream_writable: 'rollup-plugin-node-polyfills/polyfills/readable-stream/writable',
+        _stream_transform: 'rollup-plugin-node-polyfills/polyfills/readable-stream/transform',
+        timers: 'rollup-plugin-node-polyfills/polyfills/timers',
+        console: 'rollup-plugin-node-polyfills/polyfills/console',
+        vm: 'rollup-plugin-node-polyfills/polyfills/vm',
+        zlib: 'rollup-plugin-node-polyfills/polyfills/zlib',
+        tty: 'rollup-plugin-node-polyfills/polyfills/tty',
+        domain: 'rollup-plugin-node-polyfills/polyfills/domain',
       },
+      // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
-    esbuild: {
-      drop: ['console', 'debugger'],
+    server: {
+      port: 5473,
+      // host: false,
+      // open: false,
+      // proxy: {
+      //   '/dev-api': {
+      //     target: 'http://localhost:3000/api',
+      //     changeOrigin: true,
+      //     rewrite: (p) => p.replace(/^\/dev-api/, ''),
+      //   },
+      // },
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler', // or 'modern'
-          // But if you want to just silence deprecation warnings, use silenceDeprecations option:
-          // silenceDeprecations: ['legacy-js-api'],
-        },
-      },
-    },
+    // css: {
+    //   preprocessorOptions: {
+    //     scss: {
+    //       // api: 'modern-compiler', // or 'modern' v6 default modern
+    //       // But if you want to just silence deprecation warnings, use silenceDeprecations option:
+    //       // silenceDeprecations: ['legacy-js-api'],
+    //     },
+    //   },
+    // },
   }
+
+  if (isProduction) {
+    config.esbuild = {
+      drop: ['console', 'debugger'],
+    }
+  }
+
+  return config
 })

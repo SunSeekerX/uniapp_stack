@@ -8,13 +8,15 @@
     @touchstart="startDrag"
   >
     <div class="build-info-content">
-      <p>Build Time: {{ buildTime }}</p>
-      <p>Build Hash: {{ buildHash }}</p>
+      <p class="info-line">Build Time: {{ buildTime }}</p>
+      <p class="info-line">Build Hash: {{ buildHash }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted, watch, computed } from 'vue'
+
 // 主题配置
 const themes = {
   blue: {
@@ -62,7 +64,7 @@ const themes = {
 const props = defineProps({
   theme: {
     type: String,
-    default: 'green',
+    default: 'blue',
     validator: (value) => ['blue', 'purple', 'green'].includes(value),
   },
 })
@@ -81,15 +83,23 @@ let startLeft = 0
 let startTop = 0
 
 function getInitialPosition() {
-  const savedPosition = localStorage.getItem('buildInfoPosition')
-  if (savedPosition) {
-    return JSON.parse(savedPosition)
+  try {
+    const savedPosition = localStorage.getItem('buildInfoPosition')
+    if (savedPosition) {
+      return JSON.parse(savedPosition)
+    }
+  } catch (e) {
+    console.error('Error reading position from localStorage:', e)
   }
   return { left: 'auto', top: 'auto', right: '10px', bottom: '10px' }
 }
 
 function savePosition() {
-  localStorage.setItem('buildInfoPosition', JSON.stringify(position.value))
+  try {
+    localStorage.setItem('buildInfoPosition', JSON.stringify(position.value))
+  } catch (e) {
+    console.error('Error saving position to localStorage:', e)
+  }
 }
 
 const updatePosition = () => {
@@ -99,10 +109,34 @@ const updatePosition = () => {
   const maxX = window.innerWidth - rect.width
   const maxY = window.innerHeight - rect.height
 
+  // 如果当前使用的是 right/bottom 定位
+  if (position.value.right !== 'auto') {
+    const right = parseInt(position.value.right)
+    // 计算实际的左侧位置
+    const leftPos = window.innerWidth - right - rect.width
+    // 如果左侧位置小于0或者右侧超出屏幕
+    if (leftPos < 0 || leftPos > maxX) {
+      position.value = {
+        left: `${Math.min(maxX, Math.max(0, leftPos))}px`,
+        top: position.value.top !== 'auto' ? position.value.top : `${maxY}px`,
+        right: 'auto',
+        bottom: 'auto',
+      }
+      savePosition()
+      return
+    }
+  }
+
+  // 如果使用的是 left/top 定位
   if (position.value.left !== 'auto') {
     const currentLeft = parseInt(position.value.left)
     if (currentLeft > maxX) {
       position.value.left = `${maxX}px`
+      savePosition()
+    }
+    // 确保不会从左侧溢出
+    if (currentLeft < 0) {
+      position.value.left = '0px'
       savePosition()
     }
   }
@@ -113,8 +147,27 @@ const updatePosition = () => {
       position.value.top = `${maxY}px`
       savePosition()
     }
+    // 确保不会从顶部溢出
+    if (currentTop < 0) {
+      position.value.top = '0px'
+      savePosition()
+    }
   }
 }
+
+function debounce(func, wait) {
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
+
+const debouncedUpdatePosition = debounce(updatePosition, 100)
 
 const startDrag = (event) => {
   event.preventDefault()
@@ -179,11 +232,17 @@ onMounted(() => {
       buildTime.value = lines[0].replace('Build Time: ', '')
       buildHash.value = lines[1].replace('Build Hash: ', '')
     })
+    .catch((error) => {
+      console.error('Error loading build info:', error)
+      buildTime.value = 'Failed to load'
+      buildHash.value = 'Failed to load'
+    })
 
-  window.addEventListener('resize', updatePosition)
+  updatePosition()
+  window.addEventListener('resize', debouncedUpdatePosition)
 })
 
-watch(() => [window.innerWidth, window.innerHeight], updatePosition)
+watch(() => [window.innerWidth, window.innerHeight], debouncedUpdatePosition)
 </script>
 
 <style scoped>
@@ -191,7 +250,7 @@ watch(() => [window.innerWidth, window.innerHeight], updatePosition)
   position: fixed;
   z-index: 1000;
   cursor: move;
-  width: auto;
+  width: fit-content;
   height: auto;
   min-width: 200px;
   padding: 10px;
@@ -199,9 +258,9 @@ watch(() => [window.innerWidth, window.innerHeight], updatePosition)
   color: white;
   user-select: none;
   touch-action: none;
-  /* transition:
-    all 0.3s ease-in-out,
-    transform 0.2s ease; */
+  transition: all 0.3s ease-in-out;
+  max-width: calc(100vw - 20px);
+  box-sizing: border-box;
 }
 
 .build-info:hover {
@@ -215,6 +274,16 @@ watch(() => [window.innerWidth, window.innerHeight], updatePosition)
 .build-info-content {
   font-size: 14px;
   line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-line {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 蓝色主题 */
@@ -254,10 +323,17 @@ watch(() => [window.innerWidth, window.innerHeight], updatePosition)
   .build-info {
     min-width: 150px;
     padding: 8px;
+    width: auto;
   }
 
   .build-info-content {
     font-size: 12px;
+  }
+
+  .info-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>

@@ -5,10 +5,35 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>%VITE_SITE_NAME%</title>
-    <script type="module" src="/src/polyfills.js"></script>
+    <script type="module">
+      import { Buffer } from 'buffer'
+      import process from 'process'
+      import EventEmitter from 'events'
+
+      if (typeof window.global === 'undefined') {
+        window.global = window
+      }
+      if (typeof window.Buffer === 'undefined') {
+        window.Buffer = Buffer
+      }
+      if (typeof window.process === 'undefined') {
+        window.process = process
+      }
+      if (typeof window.EventEmitter === 'undefined') {
+        window.EventEmitter = EventEmitter
+      }
+    </script>
+    <!--[if lt IE 11]>
+      <script>
+        window.location.href = '/html/ie.html'
+      </script>
+    <![endif]-->
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <noscript>
+      <p>请启用JavaScript以获得最佳体验。</p>
+    </noscript>
   </body>
 </html>

@@ -7,6 +7,7 @@ module.exports = {
     browser: true,
     node: true,
     es6: true,
+    es2020: true,
   },
   extends: [
     'plugin:vue/vue3-essential',
@@ -20,4 +21,14 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': 'off',
   },
+  overrides: [
+    {
+      files: ['*.d.ts'],
+      parser: '@typescript-eslint/parser',
+      rules: {
+        'no-unused-vars': 'off',
+        'no-undef': 'off',
+      },
+    },
+  ],
 }

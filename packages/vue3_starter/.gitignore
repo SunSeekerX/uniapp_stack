@@ -1,14 +1,5 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
 .DS_Store
+node_modules/
 dist/
 dist-ssr
 coverage
@@ -21,21 +12,34 @@ tests/**/coverage/
 tests/e2e/reports
 selenium-debug.log
 
+# Local env files
+.env.local
+.env.*.local
+
+# Log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+**/*.log
+
 # Editor directories and files
+.project
 .vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 !.vscode/extensions.json
 .idea
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
-
-# IDE - VSCode
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+*.sw*
 
 # yarn 2.0+
 .pnp.*
@@ -47,8 +51,10 @@ selenium-debug.log
 !.yarn/versions
 
 # App
+.eslintcache
+src/auto-imports.d.ts
 yarn.lock
 package-lock.json
 pnpm-lock.yaml
-.eslintcache
 src/auto-imports.d.ts
+.eslintrc-auto-import.json

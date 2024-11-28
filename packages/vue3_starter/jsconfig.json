@@ -7,7 +7,12 @@
     },
     "allowJs": true,
     "checkJs": true,
-    "moduleResolution": "node"
+    "module": "ESNext",
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"],
   },
   "exclude": ["node_modules", "dist"],
   "include": [
@@ -18,6 +23,7 @@
     "src/**/*.vue",
     "src/**/*.d.ts",
     "vue-shim.d.ts",
-    "vite-env.d.ts"
+    "vite-env.d.ts",
+    "global.d.ts"
   ]
 }
