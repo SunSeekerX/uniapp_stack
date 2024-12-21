@@ -16,6 +16,7 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // yarn add --dev @esbuild-plugins/node-globals-polyfill
 // import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
@@ -23,7 +24,7 @@ import timezone from 'dayjs/plugin/timezone'
 // import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 // You don't need to add this to deps, it's included by @esbuild-plugins/node-modules-polyfill
 // import rollupNodePolyFill from 'rollup-plugin-node-polyfills'
-import { polyfillNode } from 'esbuild-plugin-polyfill-node'
+// import { polyfillNode } from 'esbuild-plugin-polyfill-node'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -38,6 +39,16 @@ export default defineConfig(({ mode, command }) => {
   const plugins = [
     // VueDevTools(),
     vue(),
+    nodePolyfills({
+      // 是否添加全局变量 process, global 等
+      globals: {
+        process: true,
+        global: true,
+        Buffer: true,
+      },
+      // 是否启用 node:crypto 等模块前缀
+      // protocolImports: true,
+    }),
     createHtmlPlugin({
       minify: true,
       /**
@@ -178,82 +189,98 @@ export default defineConfig(({ mode, command }) => {
       sourcemap: !isProduction,
       rollupOptions: {
         onwarn(warning, warn) {
-          // ���� eval ʹ�õľ���
-          if (warning.code === 'EVAL' && warning.id.includes('bip39-libs.js')) {
+          // 忽略 eval 使用的警告
+          // if (warning.code === 'EVAL' && warning.id.includes('bip39-libs.js')) {
+          //   return
+          // }
+          if (warning.code === 'EVAL') {
             return
           }
-          // �����������棬ʹ��Ĭ�ϵľ��洦��
+          // 对于其他警告，使用默认的警告处理
           warn(warning)
         },
-        plugins: [
-          // Enable rollup polyfills plugin
-          // used during production bundling
-          // rollupNodePolyFill(),
-        ],
-        // commonjsOptions: {
-        //   transformMixedEsModules: true,
-        // },
+        // plugins: [
+        //   // Enable rollup polyfills plugin
+        //   // used during production bundling
+        //   // rollupNodePolyFill(),
+        // ],
+        // external: ['@solana/web3.js'],
       },
-      assetsInlineLimit: 4096, // 4kb以下的svg会被转为base64
+     // commonjsOptions: {
+      //   transformMixedEsModules: true,
+      // },
     },
-    optimizeDeps: {
-      esbuildOptions: {
-        target: 'es2020',
-        define: {
-          global: 'globalThis',
-        },
-        // Enable esbuild polyfill plugins
-        plugins: [
-          // NodeGlobalsPolyfillPlugin({
-          //   process: true,
-          //   buffer: true,
-          // }),
-          // NodeModulesPolyfillPlugin(),
-          polyfillNode({
-            // Options (optional)
-          }),
-        ],
-      },
-    },
+    // optimizeDeps: {
+    //   esbuildOptions: {
+    //     target: 'es2020',
+    //     // define: {
+    //     //   global: 'globalThis',
+    //     // },
+    //     // Enable esbuild polyfill plugins
+    //     plugins: [
+    //       // nodeModulesPolyfillPlugin({
+    //       //   globals: {
+    //       //     process: true,
+    //       //     Buffer: true,
+    //       //   },
+    //       // }),
+    //       // NodeGlobalsPolyfillPlugin({
+    //       //   process: true,
+    //       //   buffer: true,
+    //       // }),
+    //       // NodeModulesPolyfillPlugin(),
+    //       // polyfillNode({
+    //       //   // Options (optional)
+    //       // }),
+    //     ],
+    //   },
+    //   // include: ['ethereumjs-wallet', 'buffer', 'crypto-browserify', 'stream-browserify', 'assert', 'events'],
+    // },
     plugins,
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        // 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
         // web3: './node_modules/web3/dist/web3.min.js',
         process: 'process/browser',
         // util: 'util',
-        crypto: 'crypto-browserify',
         // stream: 'stream-browserify',
         // zlib: 'browserify-zlib',
         // assert: 'assert',
+        stream: 'stream-browserify',
+        crypto: 'crypto-browserify',
+        events: 'events',
+        _stream_duplex: 'readable-stream/duplex',
+        _stream_passthrough: 'readable-stream/passthrough',
+        _stream_readable: 'readable-stream/readable',
+        _stream_transform: 'readable-stream/transform',
+        _stream_writable: 'readable-stream/writable',
 
-        util: 'rollup-plugin-node-polyfills/polyfills/util',
-        sys: 'util',
-        events: 'rollup-plugin-node-polyfills/polyfills/events',
-        stream: 'rollup-plugin-node-polyfills/polyfills/stream',
-        path: 'rollup-plugin-node-polyfills/polyfills/path',
-        querystring: 'rollup-plugin-node-polyfills/polyfills/qs',
-        // punycode: 'rollup-plugin-node-polyfills/polyfills/punycode',
-        punycode: path.resolve(__dirname, 'node_modules/punycode/punycode.js'),
-        url: 'rollup-plugin-node-polyfills/polyfills/url',
-        // string_decoder: 'rollup-plugin-node-polyfills/polyfills/string-decoder',
-        http: 'rollup-plugin-node-polyfills/polyfills/http',
-        https: 'rollup-plugin-node-polyfills/polyfills/http',
-        os: 'rollup-plugin-node-polyfills/polyfills/os',
-        assert: 'rollup-plugin-node-polyfills/polyfills/assert',
-        constants: 'rollup-plugin-node-polyfills/polyfills/constants',
-        _stream_duplex: 'rollup-plugin-node-polyfills/polyfills/readable-stream/duplex',
-        _stream_passthrough: 'rollup-plugin-node-polyfills/polyfills/readable-stream/passthrough',
-        _stream_readable: 'rollup-plugin-node-polyfills/polyfills/readable-stream/readable',
-        _stream_writable: 'rollup-plugin-node-polyfills/polyfills/readable-stream/writable',
-        _stream_transform: 'rollup-plugin-node-polyfills/polyfills/readable-stream/transform',
-        timers: 'rollup-plugin-node-polyfills/polyfills/timers',
-        console: 'rollup-plugin-node-polyfills/polyfills/console',
-        vm: 'rollup-plugin-node-polyfills/polyfills/vm',
-        zlib: 'rollup-plugin-node-polyfills/polyfills/zlib',
-        tty: 'rollup-plugin-node-polyfills/polyfills/tty',
-        domain: 'rollup-plugin-node-polyfills/polyfills/domain',
+        // util: 'rollup-plugin-node-polyfills/polyfills/util',
+        // sys: 'util',
+        // events: 'rollup-plugin-node-polyfills/polyfills/events',
+        // stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+        // path: 'rollup-plugin-node-polyfills/polyfills/path',
+        // querystring: 'rollup-plugin-node-polyfills/polyfills/qs',
+        // // punycode: 'rollup-plugin-node-polyfills/polyfills/punycode',
+        // punycode: path.resolve(__dirname, 'node_modules/punycode/punycode.js'),
+        // url: 'rollup-plugin-node-polyfills/polyfills/url',
+        // // string_decoder: 'rollup-plugin-node-polyfills/polyfills/string-decoder',
+        // http: 'rollup-plugin-node-polyfills/polyfills/http',
+        // https: 'rollup-plugin-node-polyfills/polyfills/http',
+        // os: 'rollup-plugin-node-polyfills/polyfills/os',
+        // assert: 'rollup-plugin-node-polyfills/polyfills/assert',
+        // constants: 'rollup-plugin-node-polyfills/polyfills/constants',
+        // _stream_duplex: 'rollup-plugin-node-polyfills/polyfills/readable-stream/duplex',
+        // _stream_passthrough: 'rollup-plugin-node-polyfills/polyfills/readable-stream/passthrough',
+        // _stream_readable: 'rollup-plugin-node-polyfills/polyfills/readable-stream/readable',
+        // _stream_writable: 'rollup-plugin-node-polyfills/polyfills/readable-stream/writable',
+        // _stream_transform: 'rollup-plugin-node-polyfills/polyfills/readable-stream/transform',
+        // timers: 'rollup-plugin-node-polyfills/polyfills/timers',
+        // console: 'rollup-plugin-node-polyfills/polyfills/console',
+        // vm: 'rollup-plugin-node-polyfills/polyfills/vm',
+        // zlib: 'rollup-plugin-node-polyfills/polyfills/zlib',
+        // tty: 'rollup-plugin-node-polyfills/polyfills/tty',
+        // domain: 'rollup-plugin-node-polyfills/polyfills/domain',
       },
       // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
