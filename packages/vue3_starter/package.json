@@ -73,5 +73,5 @@
     "vite-plugin-vue-devtools": "^7.6.8",
     "vite-plugin-wasm": "^3.3.0"
   },
-  "packageManager": "yarn@4.5.3"
+  "packageManager": "yarn@4.6.0"
 }

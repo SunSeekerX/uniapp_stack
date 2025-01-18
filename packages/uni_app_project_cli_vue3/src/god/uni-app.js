@@ -181,6 +181,15 @@ export const route = (options) => {
 
 export const toast = (msg, { ...options } = {}) =>
   uni.showToast({ icon: 'none', title: msg, duration: 2000, ...options })
+export const showLoading = (title = '加载中...', mask = true) => {
+  uni.showLoading({
+    title,
+    mask,
+  })
+}
+export const hideLoading = () => {
+  uni.hideLoading()
+}
 
 export const copy = (value, { msg = '' } = {}) => {
   uni.setClipboardData({

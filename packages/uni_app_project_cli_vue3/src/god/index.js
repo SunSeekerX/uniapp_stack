@@ -5,9 +5,12 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { createI18n } from 'vue-i18n'
 import { defineStore } from 'pinia'
 
+import config from '@/config'
 import zh_CN from './locales/zh'
 import en_US from './locales/en_US'
 import * as uniapp from './uni-app'
+
+console.log(`++++++[${new Date().toISOString()}] config: `, config)
 
 const isNil = (value) => value === null || value === undefined
 const isObjectLike = (value) => value && typeof value === 'object' && !Array.isArray(value)
@@ -15,7 +18,7 @@ const isObjectLike = (value) => value && typeof value === 'object' && !Array.isA
 dayjs.extend(localizedFormat)
 dayjs.locale('en')
 
-export { dayjs, uniapp }
+export { dayjs, uniapp, config }
 
 // Constant
 export const constant = {
@@ -42,24 +45,6 @@ export const defaultConfig = {
     },
   },
   enableLocales: ['EN_US', 'ZH_CN'],
-}
-export const env = {
-  appEnv: process.env.VUE_APP_ENV || defaultConfig.defaultEnv,
-}
-export const envs = {
-  dev: {
-    BASE_URL: 'https://express.yoouu.cn',
-  },
-  prod: {
-    BASE_URL: 'https://express.yoouu.cn',
-  },
-}
-export const getEnv = (key) => {
-  const val = envs?.[env.appEnv]?.[key]
-  if (val == null) {
-    console.error(`ENV: Cannot get the ${key} value!`)
-  }
-  return val
 }
 
 // I18n
@@ -236,7 +221,7 @@ export const createRequest = (baseOptions, customOptions = {}) => {
   return http
 }
 const baseHttp = createRequest({
-  baseURL: getEnv('BASE_URL'),
+  baseURL: config.viteBaseUrl,
   withCredentials: false,
   // header: {
   //   'content-type': 'application/x-www-form-urlencoded',
